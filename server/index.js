@@ -3,8 +3,8 @@
 const { Server } = require('socket.io');
 const PORT = process.env.PORT || 3001;
 const io = new Server(PORT);
-// Accept connections on a namespace called caps, and configure socket objects from clients.
-let caps = io.of('/caps');
+
+let hungry = io.of('/hungry');
 
 //EVENT Logger
 const date = new Date();
@@ -16,31 +16,22 @@ function logger (eventName, payload){
   console.log(event);
 }
 
-caps.on('connection', (socket) => {
-  console.log('CLIENT CONNECTED TO /caps', socket.id);
-  // Ensure that client sockets are connecting to their appropriate room if specified.
-  socket.on('joinRoom', (payload) => {
-    socket.join(payload.store);
-  });
-  // Configure a Global Event Pool that every client socket should listen for:
-  // pickup - this will be broadcast to all sockets.
-  socket.on('PkgReadyFromVendor', (payload) => {
-    caps.emit('PkgReadyToDriver', payload);
-    logger ('pickup', payload);
-    // use your vendor "id" string
-    // caps.to('room-id').emit('food', payload);
-  });
-  // in-transit - this will be emitted only to Vendors that have joined the appropriate room.
-  socket.on('DriverPickUpPkg', (payload) => {
-    caps.to(payload.store).emit('DriverPickUpPkg', payload);
-    logger ('inTransit', payload);
+hungry.on('connection', (socket) => {
+  console.log('CLIENT CONNECTED TO /hungry', socket.id);
+
+  socket.on('order', (payload) => {
+    hungry.emit('order', payload);
+    console.log('payload: ', payload)
+
   });
 
-  // delivered - this will be be emitted only to Vendors that have joined the appropriate room.
-  socket.on('DriverDeliverPkg', (payload) => {
-    caps.to(payload.store).emit('DeliverPkgToVendor', payload);
-    logger ('delivered', payload);
-  });
+  socket.on('status', (payload)=>{
+    hungry.emit('status', payload);
+    console.log('back to server: ', payload)
+  })
+
+
+
 });
 
 
