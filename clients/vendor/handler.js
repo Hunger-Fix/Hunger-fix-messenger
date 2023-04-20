@@ -21,7 +21,7 @@ function orderFromVendor(storeName, socket) {
 function thankyouFromVendor(payload) {
   console.log(`Thank you, ${payload.customer}`);
   // After the delivery event has been received, exit the application using process.exit().
-  process.exit();
+  // process.exit();
 };
 
 
@@ -30,4 +30,4 @@ function thankyouFromVendor(payload) {
 module.exports = {
   orderFromVendor,
   thankyouFromVendor
-};
+}

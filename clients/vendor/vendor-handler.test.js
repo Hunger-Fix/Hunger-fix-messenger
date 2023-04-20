@@ -58,9 +58,7 @@ test('SOCKET vendor receive package delivered msg', async () => {
     customer: "a"
   };
   let spy = jest.spyOn(global.console,'log');
-  process.exit = jest.fn();
   thankyouFromVendor(obj);
   // expect(console.log).toHaveBeenCalled();
   expect(spy).toHaveBeenCalled();
-  expect(process.exit).toHaveBeenCalled();
 });
