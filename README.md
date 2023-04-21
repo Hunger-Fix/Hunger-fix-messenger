@@ -1,5 +1,11 @@
 # Hunger-fix-messenger
 
+## Authors
+
+    * [Arturo Valadez](https://github.com/Arturovaladez1), 
+    * [Thomas Lau](https://github.com/Rapib), 
+    * [Phil Chapman](https://github.com/pchapl1), 
+    * [Kameron Watts](https://github.com/KamWatts)
 
 ## Problem Domain
 
